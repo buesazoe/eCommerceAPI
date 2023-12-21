@@ -1,29 +1,27 @@
 from django.shortcuts import get_object_or_404, render
 from django.views import View
 from django.views.generic import CreateView
+from django.views.decorators.http import require_POST, require_http_methods
+from django.views.generic import TemplateView
+from django.contrib.auth.models import User
+from django.contrib.auth.hashers import make_password
+from django.contrib.auth import authenticate, login, logout
 from rest_framework import generics, status
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.views import APIView
+from rest_framework.authtoken.models import Token
 from .models import Order, CartItem, Product, UserProfile
 from .serializers import (
     OrderSerializer,
     CartItemSerializer,
     ProductSerializer,
     UserSerializer,
-    UserProfileSerializer,  # Add UserProfileSerializer
+    UserProfileSerializer,
+    LoginSerializer,
+    CartItemCreateSerializer,
 )
-from django.views.decorators.http import require_http_methods
-from django.views.generic import TemplateView
-from django.contrib.auth.models import User
-from django.contrib.auth.hashers import make_password
-from rest_framework.views import APIView
-from django.contrib.auth import authenticate, login, logout
-from rest_framework.authtoken.models import Token
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import AllowAny
-from rest_framework import status
-from .serializers import LoginSerializer, CartItemCreateSerializer
-from django.views.decorators.http import require_POST
 
 class HomeView(TemplateView):
     template_name = 'home.html'
