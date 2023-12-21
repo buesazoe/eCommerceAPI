@@ -1,0 +1,40 @@
+<!-- home.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        /* Add button styling */
+        .button-link {
+            text-decoration: none;
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to the eCommerce Site</h1>
+
+    <ul>
+        {% for order in orders %}
+            <li>
+                Order ID: {{ order.id }}<br>
+                Status: {{ order.status }}<br>
+                <!-- Use a link styled as a button -->
+                <a href="{% url 'order' pk=order.id %}" class="button-link">
+                    View Order Details
+                </a>
+                <hr>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
